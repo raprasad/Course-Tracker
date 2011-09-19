@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.loader import render_to_string
-
+import datetime
 import re
 
 from course_tracker.department.models import Department
@@ -85,6 +85,7 @@ alter table course_semesterdetails add column `description` longtext NOT NULL af
 alter table course_semesterdetails add column `enrollments_entered` bool NOT NULL after mcb_required;
 
 '''
+
 class SemesterDetails(models.Model):
     course = models.ForeignKey(Course)
 
@@ -92,10 +93,13 @@ class SemesterDetails(models.Model):
 
     year = models.IntegerField()
     term = models.ForeignKey(CourseTerm)
+    time_sort = models.DateField(help_text='auto-filled on save', blank=True, null=True)
     
     q_score = models.IntegerField(default=0)
     number_of_sections = models.IntegerField(default=0)
     section_status = models.ForeignKey(SectionStatus)
+    section_note = models.TextField(blank=True)
+    
     meeting_type = models.ForeignKey(MeetingType)
     
     description = models.TextField(blank=True)
@@ -112,7 +116,8 @@ class SemesterDetails(models.Model):
     meeting_date = models.CharField(max_length=100)
     meeting_time = models.CharField(max_length=100)
     through_reading_period = models.BooleanField()
-
+    exam_group = models.CharField(max_length=20, blank=True)
+    
     # room
     room = models.ForeignKey(Room)
     confirmation_status = models.ForeignKey(RoomStatus)
@@ -133,6 +138,7 @@ class SemesterDetails(models.Model):
     
     # budgets
     budget = models.DecimalField(default=0, decimal_places=2, max_digits=9)
+    budget_note = models.TextField(blank=True)
     
     # books 
     books = models.ManyToManyField(Book, blank=True, null=True)
@@ -140,6 +146,11 @@ class SemesterDetails(models.Model):
 
     def save(self):
         self.total_enrolled = self.undergrads_enrolled + self.grads_enrolled + self.employees_enrolled 
+        try:
+            self.time_sort = datetime.date(self.year, self.term.sort_month, 1)
+        except:
+            self.time_sort = None
+            
         super(SemesterDetails, self).save()
 
     
@@ -180,7 +191,7 @@ class SemesterDetails(models.Model):
         return '%s - %s %s' % (self.course, self.year, self.term)
 
     class Meta:
-        ordering = ('course', 'year', 'term', 'course')
+        ordering = ('course', '-time_sort',) #'year', 'term',)
         verbose_name_plural = 'Semester details'
        
 class SemesterInstructorQScore(models.Model):

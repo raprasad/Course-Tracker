@@ -7,5 +7,10 @@ admin.site.register(CourseStatus)
 admin.site.register(SectionStatus)
 admin.site.register(CourseType)
 admin.site.register(RoomStatus)
-admin.site.register(CourseTerm)
+
+class CourseTermAdmin(admin.ModelAdmin):
+    save_on_top = True  
+    list_display = ( 'name', 'sort_month',)
+admin.site.register(CourseTerm, CourseTermAdmin)
+
 admin.site.register(MeetingType)

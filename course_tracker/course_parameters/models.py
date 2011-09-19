@@ -49,12 +49,13 @@ class RoomStatus(models.Model):
 
 class CourseTerm(models.Model):
     name = models.CharField(max_length=75)
-
+    sort_month = models.IntegerField(help_text='e.g. for Fall, enter "8" for August')
+    
     def __unicode__(self):
         return self.name
 
     class Meta:
-        ordering = ('id',)
+        ordering = ('sort_month', 'name',)
 
 
 class MeetingType(models.Model):

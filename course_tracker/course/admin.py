@@ -38,10 +38,11 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
     search_fields = ('course__title', 'instructors__lname', 'instructors__fname')
     filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', 'books',)
     fieldsets = [
-     ('Course', { 'fields':  [  ('course',) ,  'course_title',('year', 'term'), ]}), \
-     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', 'through_reading_period', )  ]}),\
+     ('Course', { 'fields':  [  ('course',) ,  'course_title',('year', 'term', 'time_sort', ), ]}), \
+     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', 'through_reading_period', ), 'exam_group'  ]}),\
+     
      ('Room', { 'fields':  [  ('room', 'confirmation_status', 'visitors', )  ]}),\
-     ('Sections', { 'fields':  [  ( 'number_of_sections', 'section_status',),   ]}),\
+     ('Sections', { 'fields':  [  ( 'number_of_sections', 'section_status', 'section_note',),   ]}),\
 
      ('Instructors', { 'fields':  [  'instructors', 'teaching_assistants', ]}),\
 
@@ -55,7 +56,7 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
 
        ('Enrollments', { 'fields':  [ 'enrollments_entered', ( 'undergrads_enrolled', 'grads_enrolled', 'employees_enrolled', 'cross_registered', ),'withdrawals', 'total_enrolled',  ]}),\
 
-     ('Budget', { 'fields':  [  'budget', ]}),\
+     ('Budget', { 'fields':  [  ('budget', 'budget_note',) ]}),\
 
      ('Instructor/Enrollment/Budget History', { 'classes': ('xcollapse',), 'fields':  [ 'instructor_history', 'enrollment_history', 'budget_history',  ]}),\
 

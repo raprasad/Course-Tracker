@@ -1,0 +1,18 @@
+
+Note: Minor changes requested by John K.
+
+- SemesterDetails
+    - added sort_month field to Course Term.
+        alter table  course_parameters_courseterm add column `sort_month` integer NOT NULL after name;
+    
+    - added time_sort field to SemesterDetails
+        alter table  course_semesterdetails add column `time_sort` date after term_id;
+        
+
+    - semester details: add text note for budget as well as sections
+        alter table  course_semesterdetails add column  `budget_note` longtext NOT NULL after budget;
+        alter table  course_semesterdetails add column  `section_note` longtext NOT NULL after section_status_id;
+     
+    - meeting section: add 10 character input box for "exam group" (e.g. usually an number)
+        alter table  course_semesterdetails add column `exam_group` varchar(20) NOT NULL after through_reading_period;
+
