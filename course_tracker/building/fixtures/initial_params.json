@@ -1,0 +1,44 @@
+[
+    {
+        "pk": 6, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Chalkboard"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Dry Erase Board"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Individual Desks"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Large Tables"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Lectern"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "building.roomdetail", 
+        "fields": {
+            "name": "Projector"
+        }
+    }
+]

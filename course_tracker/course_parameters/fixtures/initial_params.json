@@ -1,0 +1,170 @@
+[
+    {
+        "pk": 1, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "CORE - Science A"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "CORE - Science B"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Advanced Courses"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Biology"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Chemistry"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Life Science"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Research Experience"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB - Tutorial"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "course_parameters.requirement", 
+        "fields": {
+            "name": "MCB -Physics"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "course_parameters.coursetype", 
+        "fields": {
+            "name": "Full"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "course_parameters.coursetype", 
+        "fields": {
+            "name": "Half"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "course_parameters.coursetype", 
+        "fields": {
+            "name": "Quarter"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "course_parameters.roomstatus", 
+        "fields": {
+            "name": "Confirmed"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "course_parameters.roomstatus", 
+        "fields": {
+            "name": "Pending"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "course_parameters.courseterm", 
+        "fields": {
+            "name": "Fall"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "course_parameters.courseterm", 
+        "fields": {
+            "name": "Fall/Spring"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "course_parameters.courseterm", 
+        "fields": {
+            "name": "Full Year"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "course_parameters.courseterm", 
+        "fields": {
+            "name": "Spring"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Lecture"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Reading"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Research"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Section"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Seminar"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "course_parameters.meetingtype", 
+        "fields": {
+            "name": "Tutorial"
+        }
+    }
+]

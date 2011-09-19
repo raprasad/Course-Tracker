@@ -1,0 +1,21 @@
+{% load humanize %} 
+
+
+{% if q_score_history %}
+<table cellpadding="20">
+    <tr>
+        <th>Semester</th>       
+        <th>Course</th>
+        <th>Q Score</th>
+        
+    </tr>
+    {% for s in q_score_history %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.semester.term }} {{ s.semester.year}}</a></td>
+        <td class="{{ rowcolors }}">{{ s.semester.course }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.q_score }}</td>
+    </tr>
+    {% endfor %}
+    
+</table>
+{% endif %}

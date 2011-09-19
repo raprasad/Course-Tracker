@@ -1,0 +1,86 @@
+[
+    {
+        "pk": 3, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Current: Non-Teaching"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Current: Sabbatical"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Current: Teaching"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Departed"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Emeritus"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "instructor.instructorstatus", 
+        "fields": {
+            "name": "Visiting"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Faculty"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Fellow"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Lecturer"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Preceptor"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Staff"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "instructor.instructortitle", 
+        "fields": {
+            "name": "Visiting Professor"
+        }
+    }
+]

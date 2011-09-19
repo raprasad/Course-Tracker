@@ -1,0 +1,67 @@
+<script type="text/javascript">
+var chart;
+jQuery(document).ready(function() {
+	chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'enrollment_container',
+			defaultSeriesType: 'line',
+			marginRight: 130,
+			marginBottom: 30
+		},
+		title: {
+			text: 'Enrollment by Semester ',
+			x: -20 //center
+		},
+		subtitle: {
+			text: '',
+			x: -20
+		},
+		xAxis: {
+			categories: [ '{{ categories|join:"','" }}']
+		//	categories: ['Fall 2008', 'Spring 2009','Fall 2009', 'Spring 2010', 'Fall 2010', 'Spring 2011']
+		},
+		yAxis: {
+			title: {
+				text: 'Number of Students'
+			},
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		tooltip: {
+			formatter: function() {
+	                return ''+ this.series.name +''+this.x +': '+ this.y;
+			}
+		},
+		legend: {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'top',
+			x: -10,
+			y: 100,
+			borderWidth: 0
+		},
+		series: [{
+			name: 'Total Enrolled',
+			//data: [1, 27, 34, 39, 46, 56]
+			data: [{{ total_enrolled|join:"," }}]
+		}, {
+			name: 'Undergrads',
+            data: [{{ undergrad|join:"," }}]
+			//data: [18, 22, 30, 34, 40, 47]
+		}, {
+			name: 'Grads',
+			data: [{{ grad|join:"," }}]
+			//data: [1, 2, 4, 4, 5, 7]
+		}, {
+			name: 'Employees',
+			data: [{{ employee|join:"," }}]
+			//data: [2, 3, 0, 1, 1, 2]
+		}]
+	});
+
+});
+</script>
+<div id="enrollment_container" style="width: 700px;height: 500px"></div>

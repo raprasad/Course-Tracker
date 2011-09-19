@@ -1,0 +1,26 @@
+{% load humanize %} 
+
+{% ifnotequal semester_details.count 0 %}
+<table cellpadding="20">
+    <tr>
+        <th>Semester</th>
+        <th>Total</th>
+        <th>Undergrads</th>
+        <th>Grads</th>
+        <th>Employee</th>
+        <th>Cross Registered</th>
+        <th>Withdrawals Registered</th>
+    </tr>
+    {% for s in semester_details %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{{ rowcolors }} align-right">{{ s.total_enrolled|intcomma }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.undergrads_enrolled|intcomma }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.grads_enrolled|intcomma }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.employees_enrolled|intcomma }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.cross_registered|intcomma }}</td>
+        <td class="{{ rowcolors }} align-right">({{ s.withdrawals|intcomma }})</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endifnotequal %}

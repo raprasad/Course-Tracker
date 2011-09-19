@@ -1,0 +1,17 @@
+{% load humanize %} 
+
+{% ifnotequal semester_details.count 0 %}
+<table cellpadding="20">
+    <tr>
+        <th>Semester</th>
+        <th>Budget</th>
+    </tr>
+    {% for s in semester_details %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}">
+            <a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{{ rowcolors }} align-right">{{ s.budget|intcomma }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endifnotequal %}
