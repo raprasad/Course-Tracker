@@ -1,0 +1,14 @@
+Course Tracker is a database used to record information about courses offered by the Department of Molecular & Cellular Biology at Harvard University.
+
+Specifically, the database contains year over year information regarding the teachers of a class, class budget, textbooks, enrollment, physical classroom space required, number of sections, etc.
+
+Currently, this project uses the Django web framework--specifically the administrative interface and models.
+
+The contact for this database is 
+    Department of Molecular and Cellular Biology
+    Harvard University
+    52 Oxford Street
+    Cambridge, MA 02138
+    (617) 495 2300
+    
+    - current programmer: Raman Prasad, raman_prasad@harvard.edu
