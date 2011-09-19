@@ -115,6 +115,7 @@ class SemesterDetails(models.Model):
     # meeting date/time
     meeting_date = models.CharField(max_length=100)
     meeting_time = models.CharField(max_length=100)
+    meeting_note = models.TextField(blank=True)    
     through_reading_period = models.BooleanField()
     exam_group = models.CharField(max_length=20, blank=True)
     
@@ -153,6 +154,11 @@ class SemesterDetails(models.Model):
             
         super(SemesterDetails, self).save()
 
+
+    #def department(self):
+        #return self.course.department.abbreviation
+    #    return self.course.course_id #department.abbreviation
+    #department.allow_tags = True
     
     def budget_history(self):
         lst = SemesterDetails.objects.filter(course=self.course).order_by('-year', 'term')

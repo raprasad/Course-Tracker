@@ -15,4 +15,6 @@ Note: Minor changes requested by John K.
      
     - meeting section: add 10 character input box for "exam group" (e.g. usually an number)
         alter table  course_semesterdetails add column `exam_group` varchar(20) NOT NULL after through_reading_period;
-
+        alter table course_semesterdetails add column `meeting_note` longtext NOT NULL after meeting_time;
+        
+    

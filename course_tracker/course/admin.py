@@ -39,7 +39,7 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
     filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', 'books',)
     fieldsets = [
      ('Course', { 'fields':  [  ('course',) ,  'course_title',('year', 'term', 'time_sort', ), ]}), \
-     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', 'through_reading_period', ), 'exam_group'  ]}),\
+     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', 'through_reading_period',), 'meeting_note', 'exam_group'  ]}),\
      
      ('Room', { 'fields':  [  ('room', 'confirmation_status', 'visitors', )  ]}),\
      ('Sections', { 'fields':  [  ( 'number_of_sections', 'section_status', 'section_note',),   ]}),\
