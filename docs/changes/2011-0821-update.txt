@@ -1,0 +1,5 @@
+
+Note: Minor changes requested by John K.
+
+- SemesterDetails and SemesterInstructorQScore
+    - change q_score from IntegerField to DecimalField (2 decimal places)

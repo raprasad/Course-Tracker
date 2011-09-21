@@ -13,7 +13,7 @@ from course_tracker.textbook.models import Book
 
 class Course(models.Model):
     """
-    alter table course_course add column `course_sort_field` varchar(30) NOT NULL after course_id;
+    Basic Course information that doesn't change from semester to semester
     """
     course_id = models.CharField(max_length=20)
     
@@ -80,13 +80,11 @@ class Course(models.Model):
         ordering = ('course_sort_field', 'course_id',)
         
 
-'''
-alter table course_semesterdetails add column `description` longtext NOT NULL after meeting_type_id;
-alter table course_semesterdetails add column `enrollments_entered` bool NOT NULL after mcb_required;
-
-'''
 
 class SemesterDetails(models.Model):
+    """
+    Semester-specific information for a particular course.    
+    """
     course = models.ForeignKey(Course)
 
     enrollment_limit = models.IntegerField(null=True, blank=True)
@@ -95,7 +93,7 @@ class SemesterDetails(models.Model):
     term = models.ForeignKey(CourseTerm)
     time_sort = models.DateField(help_text='auto-filled on save', blank=True, null=True)
     
-    q_score = models.IntegerField(default=0)
+    q_score = models.DecimalField(default=0, decimal_places=2, max_digits=9)
     number_of_sections = models.IntegerField(default=0)
     section_status = models.ForeignKey(SectionStatus)
     section_note = models.TextField(blank=True)
@@ -201,9 +199,12 @@ class SemesterDetails(models.Model):
         verbose_name_plural = 'Semester details'
        
 class SemesterInstructorQScore(models.Model):
+    '''
+    Record a Q score for a specific semester and instructor
+    '''
     semester = models.ForeignKey(SemesterDetails)
     instructor = models.ForeignKey(Instructor)
-    q_score = models.IntegerField(default=0)
+    q_score = models.DecimalField(default=0, decimal_places=2, max_digits=9)
 
     #def save(self):
     class Meta:
