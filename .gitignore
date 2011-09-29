@@ -1,6 +1,6 @@
 # ignore specific files
 .DS_Store
-/course_tracker/config/DESKTOP.py
+#/course_tracker/config/DESKTOP.py
 /course_tracker/config/RCG_WEBAPP_PRD.py
 
 # ignore python compiled files
