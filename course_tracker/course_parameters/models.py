@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Requirement(models.Model):
-    name = models.CharField(max_length=125)
+    name = models.CharField(max_length=125, unique=True)
+    
     def __unicode__(self):
         return self.name
     
