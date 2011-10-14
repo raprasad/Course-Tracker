@@ -33,7 +33,7 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
     inlines = (SemesterInstructorQScoreAdminInline, )
     readonly_fields = ['instructors_list', 'course_title', 'instructor_history', 'budget_history', 'enrollment_history', ]
     list_display = ( 'course', 'year', 'term', 'instructors_list', 'meeting_date', 'meeting_time', 'room', 'number_of_sections',  )
-    list_filter = (  'year', 'term','course', 'instructors' )
+    list_filter = (  'year', 'term', 'meeting_type', 'course__department__name', 'instructors' )
 
     search_fields = ('course__title', 'instructors__lname', 'instructors__fname')
     filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', 'books',)
