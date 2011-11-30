@@ -3,5 +3,9 @@
 #/course_tracker/config/DESKTOP.py
 /course_tracker/config/RCG_WEBAPP_PRD.py
 
+# directories to ignore
+/spreadsheets/*
+/fixtures/*
+
 # ignore python compiled files
 *.pyc

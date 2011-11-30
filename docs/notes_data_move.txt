@@ -1,0 +1,1 @@
+python manage.py dumpdata --indent=4 building department instructor textbook course_parameters course > course_2011_1103.json
