@@ -36,12 +36,12 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
     list_filter = (  'year', 'term', 'meeting_type', 'course__department__name', 'instructors' )
 
     search_fields = ('course__title', 'instructors__lname', 'instructors__fname')
-    filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', 'books',)
+    filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', )
     fieldsets = [
      ('Course', { 'fields':  [  ('course',) ,  'course_title',('year', 'term', 'time_sort', ), ]}), \
-     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', 'through_reading_period',), 'meeting_note', 'exam_group'  ]}),\
+     ('Meeting Date', { 'fields':  [   ('meeting_type', 'enrollment_limit',), ('meeting_date', 'meeting_time', ), 'meeting_note', 'exam_group'  ]}),\
      
-     ('Room', { 'fields':  [  ('room', 'confirmation_status', 'visitors', )  ]}),\
+     ('Room', { 'fields':  [  ('room', 'confirmation_status',  )  ]}),\
      ('Sections', { 'fields':  [  ( 'number_of_sections', 'section_status', 'section_note',),   ]}),\
 
      ('Instructors', { 'fields':  [  'instructors', 'teaching_assistants', ]}),\
@@ -59,8 +59,6 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
      ('Budget', { 'fields':  [  ('budget', 'budget_note',) ]}),\
 
      ('Instructor/Enrollment/Budget History', { 'classes': ('xcollapse',), 'fields':  [ 'instructor_history', 'enrollment_history', 'budget_history',  ]}),\
-
-     ('Books', { 'fields':  [  'books', ]}),\
 
      ('"Q" Score for Semester', { 'fields':  [  ('q_score', ),   ]}),\
 

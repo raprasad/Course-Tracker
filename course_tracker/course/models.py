@@ -7,7 +7,7 @@ from course_tracker.department.models import Department
 from course_tracker.building.models import Room
 from course_tracker.instructor.models import Instructor, TeachingAssistant
 from course_tracker.course_parameters.models import *
-from course_tracker.textbook.models import Book
+#from course_tracker.textbook.models import Book
 
 
 
@@ -114,13 +114,11 @@ class SemesterDetails(models.Model):
     meeting_date = models.CharField(max_length=100)
     meeting_time = models.CharField(max_length=100)
     meeting_note = models.TextField(blank=True)    
-    through_reading_period = models.BooleanField()
     exam_group = models.CharField(max_length=20, blank=True)
     
     # room
     room = models.ForeignKey(Room)
     confirmation_status = models.ForeignKey(RoomStatus)
-    visitors = models.BooleanField('allow visitors?')
 
     # requirements
     mcb_required = models.BooleanField('Required for MCB')
@@ -140,7 +138,7 @@ class SemesterDetails(models.Model):
     budget_note = models.TextField(blank=True)
     
     # books 
-    books = models.ManyToManyField(Book, blank=True, null=True)
+    #books = models.ManyToManyField(Book, blank=True, null=True)
     #online_materials = models.ManyToManyField(OnlineMaterial)
 
     def save(self):

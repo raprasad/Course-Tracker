@@ -129,9 +129,7 @@ class Instructor(models.Model):
 
     #q_score = models.IntegerField()
     status = models.ForeignKey(InstructorStatus)
-    
-    three_year_plan = models.TextField(blank=True)
-    
+        
     def course_history(self):
         if not self.id or self.semesterdetails_set.count() ==0:
             return '(no history)'        

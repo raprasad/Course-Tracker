@@ -31,7 +31,6 @@ class InstructorAdmin(admin.ModelAdmin):
                                   ('room2', 'building2',),  ]}),\
      ('Email / Phone / Fax', { 'fields':  [ 'email', 'phone', 'fax',  ]}),\
 
-     ('Three Year Plan', { 'fields':  [  'three_year_plan',  ]}),\
      ( 'Course History', { 'classes': ('xcollapse',), 'fields':  [ 'course_history', 'q_score_history',  ]}),\
      
      

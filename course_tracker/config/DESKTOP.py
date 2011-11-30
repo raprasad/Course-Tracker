@@ -130,7 +130,7 @@ INSTALLED_APPS = (
     'course_tracker.building',
     'course_tracker.department',
     'course_tracker.instructor',
-    'course_tracker.textbook',
+    #'course_tracker.textbook',
     'course_tracker.course_parameters',
     'course_tracker.course',
     # Uncomment the next line to enable the admin:

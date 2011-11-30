@@ -1,0 +1,19 @@
+1: The button “Through Reading Period” (since none of the sources talk about this)
+ 
+alter table course_semesterdetails drop column through_reading_period;
+
+
+2: The button “Allow Visitors” (since the only classes that would have visitors after shopping period would be prospective students for freshman classes and those are so big, nobody would know if a visitor was there or not)
+
+alter table course_semesterdetails drop column visitors;
+
+ 
+3: The whole textbooks section (in Semester Details, and the Main Page). The Coop has their own database that tracks the books throughout the year, if (in the rare case) I need to know a historical book, I can call the COOP. Keeping this would make so much extra work and research.
+ 
+drop table course_semesterdetails_books;
+ 
+
+4: The text box “Three Year Plan” (in the Instructors page). I think expecting faculty to know and explain this so it can be put in the database is a bit unrealistic, and I am not sure why Haley initially proposed it.
+ >> Instructor object
+ 
+alter table instructor_instructor drop column three_year_plan;
