@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.template.defaultfilters import slugify
+from django.db import connection
+
 import datetime
 import xlwt
 from xlwt import easyxf
@@ -47,9 +49,30 @@ def make_course_excel_file():
     
 def get_projected_enrollment(semester):
     
-    for sd in SemesterDetails.objects.exclude(id=semester.id).exclude(year=2012).filter(course=semester.course).order_by('-time_sort'):
+    try:
+        sd = SemesterDetails.objects.exclude(id=semester.id).exclude(year=2012).filter(course=semester.course).order_by('-time_sort')[0:1].get()
         return sd
-    return None
+    except SemesterDetails.DoesNotExist:
+        return None
+
+def get_instructor_name_lookup():
+    lu = {}
+    for t in Instructor.objects.all():
+        lu.update({t.id: str(t)})
+    return lu
+
+def get_semester_to_instructor_lookup():
+    # To stop from executing hundreds of queries, tie the semester id to the instructor names
+    cursor = connection.cursor()
+    cursor.execute("SELECT semesterdetails_id, instructor_id FROM course_semesterdetails_instructors;")
+    
+    lu_semester_to_instructor = {}  # { semester_id : [instructor_id, instructor_id, ...]}
+    for r in cursor.fetchall(): 
+        sid, iid = r
+        instructor_ids = lu_semester_to_instructor.get(sid, [])
+        instructor_ids.append(iid)
+        lu_semester_to_instructor.update({ sid : instructor_ids})
+    return lu_semester_to_instructor
     
 def make_course_roster(sheet1, info_line, courses, **kwargs):
     """Spreadsheet for MCB Core admin use"""
@@ -82,17 +105,28 @@ def make_course_roster(sheet1, info_line, courses, **kwargs):
         sheet1.write(excel_row_num, col_idx, col_name, style_header)
         sheet1.col(col_idx).width = col_width * char_multiplier  
 
+    teacher_lookup = get_instructor_name_lookup()
+    semester_to_teacher_lookup = get_semester_to_instructor_lookup()
+    
+    NOT_FOUND = 'NOT_FOUND'
     for course in courses:
         #msgt('process: %s' % course)
-        for teacher in course.instructors.all():
-            #msg('instructor: %s' % teacher)
+        #for teacher in course.instructors.all():
+        #for teacher_id in course.instructors.all().values_list('id', flat=True):
+        for teacher_id in semester_to_teacher_lookup.get(course.id, [NOT_FOUND]):
             excel_row_num +=1
+
+            #if teacher_id == NOT_FOUND:
+            #    sheet1.write(excel_row_num, col_idx, 'ERR: no teachers found for course id [%s]' % course.id, style_info_cell_wrap_on)
+            #    continue    # go to next item
+                
             
             for col_idx, (col_name, attr, col_width) in enumerate(column_attributes):
                 if attr in ['notes']:
                     continue
                 elif attr == 'instructor':
-                    sheet1.write(excel_row_num, col_idx, unicode(teacher), style_info_cell_wrap_on)
+                    teacher_name = teacher_lookup.get(teacher_id, '(instructor id: %s)' % teacher_id)
+                    sheet1.write(excel_row_num, col_idx, teacher_name, style_info_cell_wrap_on)
                 elif attr == 'term':
                     sheet1.write(excel_row_num, col_idx, course.term.name, style_info_cell_wrap_on)
                 elif attr == 'course_id':
@@ -104,17 +138,17 @@ def make_course_roster(sheet1, info_line, courses, **kwargs):
                         sheet1.write(excel_row_num, col_idx, '(n/a)', style_info_cell_wrap_on)
                         col_idx+=1
                         sheet1.write(excel_row_num, col_idx, '', style_info_cell_wrap_on)
-                        continue
-                    
-                    last_semester = get_projected_enrollment(course)
-                    if last_semester is None:
-                        sheet1.write(excel_row_num, col_idx, '(n/a)', style_info_cell_wrap_on)
-                        col_idx+=1
-                        sheet1.write(excel_row_num, col_idx, 'new course)', style_info_cell_wrap_on)                        
                     else:
-                        sheet1.write(excel_row_num, col_idx, str(last_semester.total_enrolled), style_info_cell_wrap_on)
-                        col_idx+=1
-                        sheet1.write(excel_row_num, col_idx, 'based on %s %s' % (last_semester.term, last_semester.year), style_info_cell_wrap_on)                        
+                        last_semester = get_projected_enrollment(course)
+                        if last_semester is None:
+                            sheet1.write(excel_row_num, col_idx, '(n/a)', style_info_cell_wrap_on)
+                            col_idx+=1
+                            sheet1.write(excel_row_num, col_idx, 'new course)', style_info_cell_wrap_on)                        
+                        else:
+                            sheet1.write(excel_row_num, col_idx, str(last_semester.total_enrolled), style_info_cell_wrap_on)
+                            col_idx+=1
+                            sheet1.write(excel_row_num, col_idx, 'based on %s %s' % (last_semester.term, last_semester.year), style_info_cell_wrap_on)                        
+                    
                 elif attr == 'course_title':
                         sheet1.write(excel_row_num, col_idx, str(course.total_enrolled), style_info_cell_wrap_on)
 

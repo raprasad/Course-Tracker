@@ -11,7 +11,7 @@ def view_course_enrollments(request):
     if not (request.user.is_authenticated() and request.user.is_staff):  
         return HttpResponse('not accessible')
     
-    courses = SemesterDetails.objects.select_related().all().order_by('time_sort')
+    courses = SemesterDetails.objects.all().select_related().order_by('time_sort')
 
     if courses.count() == 0:
         return HttpResponse('Sorry!  No courses found.  Please click the "back" button on your browser')
@@ -32,7 +32,10 @@ def view_course_enrollments(request):
 
     # send .xls spreadsheet to response stream
     book.save(response)
-    return render_to_response('sql_query_debug.html', {}, context_instance=RequestContext(request))
+    
+    # for debugging
+    # note: extra queries are from projecting 2012 enrollments
+    #return render_to_response('sql_query_debug.html', {}, context_instance=RequestContext(request))
 
     return response
        
