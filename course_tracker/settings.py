@@ -76,6 +76,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+INTERNAL_IPS = ('140.247.108.24', '127.0.0.1', )
+
 ROOT_URLCONF = 'course_tracker.urls'
 
 TEMPLATE_DIRS = config.TEMPLATE_DIRS

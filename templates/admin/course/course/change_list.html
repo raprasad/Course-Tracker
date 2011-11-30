@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+
+{% block pretitle %}
+<p>
+    <div style="border:1px solid #999; padding:5px; width:450px; background-color:#f1f1f1">
+        <a href="{% url view_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download Course Listing (.xls)</a>
+        
+    </div>
+<!--br />path:{{ request.get_full_path }} --></p>
+{% endblock %}

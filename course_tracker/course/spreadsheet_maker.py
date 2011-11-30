@@ -83,9 +83,9 @@ def make_course_roster(sheet1, info_line, courses, **kwargs):
         sheet1.col(col_idx).width = col_width * char_multiplier  
 
     for course in courses:
-        msgt('process: %s' % course)
+        #msgt('process: %s' % course)
         for teacher in course.instructors.all():
-            msg('instructor: %s' % teacher)
+            #msg('instructor: %s' % teacher)
             excel_row_num +=1
             
             for col_idx, (col_name, attr, col_width) in enumerate(column_attributes):
