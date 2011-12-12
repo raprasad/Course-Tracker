@@ -1,0 +1,23 @@
+
+{% if academic_credit_score_history %}
+<table cellpadding="20">
+    <tr>
+        <th>Term</th>       
+        <th>Position</th>
+        <th>Score</th>
+        <th>Note</th>
+        
+    </tr>
+    {% for s in academic_credit_score_history %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:academic_year_credit_academicyearcredit_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{{ rowcolors }}">{{ s.position }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
+        <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
+    </tr>
+    {% endfor %}
+    
+</table>
+{% else %}
+    <p>No semester credit scores available</p>
+{% endif %}

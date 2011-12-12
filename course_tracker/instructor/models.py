@@ -151,7 +151,40 @@ class Instructor(models.Model):
         return render_to_string('admin/instructor/q_score_history.html', lu)      
     q_score_history.allow_tags = True
     
+
+    def course_development_credit_score_history(self):
+        #   coursedevelopmentcredit_set
+        if not self.id or self.coursedevelopmentcredit_set.count()==0:
+            return '(no history)'
+
+        return render_to_string('admin/instructor/course_development_credit_score_history.html'\
+                    , { 'course_dev_credit_score_history' : self.coursedevelopmentcredit_set.all()})
+                          
+    course_development_credit_score_history.allow_tags = True
+    
+    def academic_semester_credit_score_history(self):
+        if not self.id or self.academicyearcredit_set.count()==0:
+            return '(no history)'
+
+        lu = { 'academic_credit_score_history' : self.academicyearcredit_set.all()}
         
+        return render_to_string('admin/instructor/academic_semester_credit_score_history.html', lu )
+
+    academic_semester_credit_score_history.allow_tags = True
+    
+    def credit_score_history(self):
+        #   coursedevelopmentcredit_set
+        if not self.id:
+            return '(no history)'
+
+        semester_credit_score_history = self.semesterinstructorcredit_set.all()
+
+        lu = { 'semester_credit_score_history' : semester_credit_score_history}
+
+        return render_to_string('admin/instructor/credit_score_history.html', lu)      
+    credit_score_history.allow_tags = True
+    
+    
     def fname_lname(self):
         if self.mi:
             return '%s %s %s' % (self.first_name, self.mi, self.last_name)

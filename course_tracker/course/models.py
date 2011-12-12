@@ -1,5 +1,7 @@
 from django.db import models
 from django.template.loader import render_to_string
+from django.db.models.signals import post_save      
+
 import datetime
 import re
 
@@ -213,5 +215,49 @@ class SemesterInstructorQScore(models.Model):
 
     def __unicode__(self):
         return '%s, %s: %s' % (self.instructor, self.semester, self.q_score)
-    
+
+
+class SemesterInstructorCredit(models.Model):
+    '''
+    Record Credit for an instructor for this course
+    '''
+    semester = models.ForeignKey(SemesterDetails)
+    instructor = models.ForeignKey(Instructor)
+    credit_score = models.DecimalField(default=0, decimal_places=2, max_digits=9)
+    note = models.CharField(blank=True, max_length=255)
+
+    class Meta:
+        ordering = ('semester', 'instructor', )
+        verbose_name = 'Semester Instructor Credit Score'
+        verbose_name_plural = 'Semester Instructor Credit Scores'
+
+
+    def __unicode__(self):
+        return '%s, %s: %s' % (self.instructor, self.semester, self.credit_score)
+
+
+class CourseDevelopmentCredit(models.Model):
+    '''
+    Record Credit for an instructor for this course
+    '''
+    semester = models.ForeignKey(SemesterDetails)
+    instructor = models.ForeignKey(Instructor)
+    course_development_credit = models.DecimalField(default=0, decimal_places=2, max_digits=9)
+    note = models.CharField(blank=True, max_length=255)
+
+    class Meta:
+        ordering = ('semester', 'instructor', )
+        verbose_name = 'Course Development Credit Score'
+        verbose_name_plural = 'Course Development Credit Scores'
+
+
+    def __unicode__(self):
+        return '%s, %s: %s' % (self.instructor, self.semester, self.course_development_credit)
+
+
+
+from credit_score_maker import make_initial_semester_credit_entries
+post_save.connect(make_initial_semester_credit_entries, sender=SemesterDetails)
+
+
     

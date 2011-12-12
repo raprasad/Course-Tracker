@@ -14,12 +14,12 @@ admin.site.register(LabAssistant)
 class InstructorAdmin(admin.ModelAdmin):
     form = InstructorAdminForm
     save_on_top = True    
-    readonly_fields = ['course_history', 'q_score_history',]
+    readonly_fields = ['course_history', 'q_score_history', 'credit_score_history', 'course_development_credit_score_history', 'academic_semester_credit_score_history']
     
     list_display = ( 'last_name',  'first_name', 'title', 'status',)
     list_filter = ('status', 'title', 'primary_affiliation' )
     filter_vertical = ( 'primary_affiliation', 'other_affiliations', 'lab_assistants', )
-    search_fields = ('first_name', 'last_name', 'title' 'primary_affiliation' )
+    search_fields = ('first_name', 'last_name', 'title__name', 'primary_affiliation__name' )
     fieldsets = [
      ('Name / Title', { 'fields':  [ 'user', ('first_name', 'mi', 'last_name',), 'title' , ]}), \
      ('Appointment Types', { 'fields':  [ 'appointment_types'  ]}),\
@@ -31,7 +31,8 @@ class InstructorAdmin(admin.ModelAdmin):
                                   ('room2', 'building2',),  ]}),\
      ('Email / Phone / Fax', { 'fields':  [ 'email', 'phone', 'fax',  ]}),\
 
-     ( 'Course History', { 'classes': ('xcollapse',), 'fields':  [ 'course_history', 'q_score_history',  ]}),\
+     ( 'Course History', { 'classes': ('',), 'fields':  [ 'course_history', 'q_score_history',  ]}),\
+     ( 'Credit Score History', { 'classes': ('',), 'fields':  [ 'credit_score_history', 'course_development_credit_score_history', 'academic_semester_credit_score_history']}),\
      
      
      ]

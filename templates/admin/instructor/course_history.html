@@ -3,12 +3,14 @@
 {% ifnotequal semester_details.count 0 %}
 <table cellpadding="20">
     <tr>
+        <th>&nbsp;</th>
         <th>Semester</th>
         <th>Course</th>       
     </tr>
     {% for s in semester_details %}
     <tr>
-        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
+        <td class="{{ rowcolors }}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
         <td class="{{ rowcolors }}">{{ s.course }}</td>
     </tr>
     {% endfor %}

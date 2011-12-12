@@ -26,11 +26,21 @@ class SemesterInstructorQScoreAdminInline(admin.TabularInline):
     model = SemesterInstructorQScore
     #form = SemesterInstructorQScoreForm
     extra=0
+
+
+class SemesterInstructorCreditAdminInline(admin.TabularInline):
+    model = SemesterInstructorCredit
+    extra=0
     
+
+class CourseDevelopmentCreditAdminInline(admin.TabularInline):
+    model = CourseDevelopmentCredit
+    extra=0
+
 
 class SemesterDetailsAdmin(admin.ModelAdmin):
     save_on_top = True    
-    inlines = (SemesterInstructorQScoreAdminInline, )
+    inlines = (SemesterInstructorQScoreAdminInline, SemesterInstructorCreditAdminInline, CourseDevelopmentCreditAdminInline )
     readonly_fields = ['instructors_list', 'course_title', 'instructor_history', 'budget_history', 'enrollment_history', ]
     list_display = ( 'course', 'year', 'term','time_sort','instructors_list', 'meeting_date', 'meeting_time', 'room', 'number_of_sections',  )
     list_filter = (  'year', 'term', 'meeting_type', 'course__department__name', 'instructors' )

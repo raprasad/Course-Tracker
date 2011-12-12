@@ -133,6 +133,8 @@ INSTALLED_APPS = (
     #'course_tracker.textbook',
     'course_tracker.course_parameters',
     'course_tracker.course',
+    'course_tracker.academic_year_credit',
+    
     # Uncomment the next line to enable the admin:
 
     # Uncomment the next line to enable admin documentation:
