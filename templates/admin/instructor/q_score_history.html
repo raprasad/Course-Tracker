@@ -1,21 +1,48 @@
 {% load humanize %} 
 
 
-{% if q_score_history %}
+{% if semester_details %}
+<p><b>Note: Courses without Q scores are not included</b></p>
+<div style="margin:0 0 0 110px;">
+
 <table cellpadding="20">
     <tr>
+        <th>&nbsp;</th>       
         <th>Semester</th>       
         <th>Course</th>
-        <th>Q Score</th>
-        
+        <th>Q Score for Class<br />(not instructor)</th>
+        <th>Instructor Q Score</th>
     </tr>
-    {% for s in q_score_history %}
+    {% for s in semester_details %}
     <tr>
-        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.semester.term }} {{ s.semester.year}}</a></td>
-        <td class="{{ rowcolors }}">{{ s.semester.course }}</td>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}">{{ forloop.counter }}</td>
+        <td class="{{ rowcolors }}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{{ rowcolors }}"><a href="{% url admin:course_course_change s.course.id %}">{{ s.course }}</a></td>
         <td class="{{ rowcolors }} align-right">{{ s.q_score }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.instructor_specific_q_score }}</td>
+
+     
     </tr>
     {% endfor %}
-    
+    {% if stats_helper %}
+    <tr>
+          <td colspan="2" rowspan="3">&nbsp;</td>    
+          <td class="align-right">*Mean Q score</td>
+          <td class="align-right">{{ stats_helper.mean_score|floatformat:2  }}</td>
+          <td class="align-right">{{ instructor_stats_helper.mean_score|floatformat:2 }}</td>
+          
+       </tr>    
+       <tr>
+          <td class="align-right">*Median Q score</td>
+          <td class="align-right">{{ stats_helper.median_score|floatformat:2 }}</td>
+          <td class="align-right">{{ instructor_stats_helper.median_score|floatformat:2 }}</td>
+      </tr>    
+       <tr>
+          <td colspan="1" class="align-right">*<i>(excludes scores of 0)</i></td>
+          <td colspan="2">&nbsp;</td>    
+          
+      </tr>
+     {% endif %}
 </table>
+</div>
 {% endif %}

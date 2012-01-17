@@ -1,0 +1,32 @@
+{% load humanize %} 
+
+
+{% if semester_details %}
+<table cellpadding="20">
+    <tr>
+        <th>Semester</th>       
+        <th>Course Q Score</th>
+        
+    </tr>
+    {% for s in semester_details %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
+        <td class="{{ rowcolors }} align-right">{{ s.q_score }}</td>
+    </tr>
+    {% endfor %}
+    {% if stats_helper %}
+    <tr>
+       <td>*Mean Q score</td>
+       <td class="align-right">{{ stats_helper.mean_score|floatformat:2 }}</td>
+    </tr>    
+    <tr>
+       <td>*Median Q score</td>
+       <td class="align-right">{{ stats_helper.median_score|floatformat:2 }}</td>
+   </tr>    
+    <tr>
+       <td colspan="2">*<i>(excludes scores of 0)</i></td>
+   </tr>  
+   {% endif %}
+     
+</table>
+{% endif %}

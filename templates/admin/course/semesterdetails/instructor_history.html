@@ -1,6 +1,9 @@
 {% load humanize %} 
 
 {% ifnotequal semester_details.count 0 %}
+<div style="font-weight:bold;font-size:120%; padding:0 0 20px 0;"><i>Click on a semester name (e.g. "Spring 2009") to see details for that term.</i></div>
+
+<div style="margin:0 0 0 110px;">
 <table cellpadding="20">
     <tr>
         <th>Semester</th>
@@ -10,9 +13,10 @@
     <tr>
         <td class="{% cycle 'row1' 'row2' as rowcolors %}"><a href="{% url admin:course_semesterdetails_change s.id %}">{{ s.term }} {{ s.year}}</a></td>
         <td class="{{ rowcolors }}">{% for t in s.instructors.all %}
-                {{ t }}<br />
+                <a href="{% url admin:instructor_instructor_change t.id %}">{{ t }}<br />
             {% endfor %}</td>
     </tr>
     {% endfor %}
 </table>
+</div>
 {% endifnotequal %}

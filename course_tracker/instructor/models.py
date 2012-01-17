@@ -6,6 +6,7 @@ from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
 from course_tracker.department.models import Department
 from course_tracker.building.models import Building
+from course_tracker.qscore_helper.q_score_stats_helper import QScoreStatsHelper
 
 
 class InstructorStatus(models.Model):
@@ -140,13 +141,41 @@ class Instructor(models.Model):
         return render_to_string('admin/instructor/course_history.html', lu)      
     course_history.allow_tags = True
     
+    
     def q_score_history(self):
+        """For displaying Q score of class as well as the instructor"""
         if not self.id or self.semesterinstructorqscore_set.count() ==0:
             return '(no history)'        
+        
+        # retrieve semesters where instructor taught
+        lst = self.semesterdetails_set.all().order_by('-year','term') 
+        if lst.count() == 0:
+            return '(no history)'
 
-        q_score_history = self.semesterinstructorqscore_set.all()
+        # retrieve instructor specific q scores
+        sdict = {}  # { semester : SemesterInstructorQScore }
+        for semester_qscore in self.semesterinstructorqscore_set.all():    
+            sdict.update({ semester_qscore.semester : semester_qscore})
 
-        lu = { 'q_score_history' : q_score_history   }
+        # match instructor specific scores with semester
+        updated_lst = []
+        for semester_obj in lst:
+            if sdict.has_key(semester_obj):
+                semester_obj.instructor_specific_q_score = sdict.get(semester_obj).q_score
+            else:
+                semester_obj.instructor_specific_q_score = 0
+            updated_lst.append(semester_obj)
+        
+        updated_lst = filter(lambda x: x.q_score > 0 or x.instructor_specific_q_score > 0 , updated_lst)
+
+        q_scores_course = map(lambda x: x.q_score, updated_lst)
+        q_scores_instructor = map(lambda x: x.instructor_specific_q_score, updated_lst)
+        stats_helper = QScoreStatsHelper(q_scores_course)
+        instructor_stats_helper = QScoreStatsHelper(q_scores_instructor)
+        
+        lu = { 'semester_details' : updated_lst\
+            , 'stats_helper':stats_helper
+            , 'instructor_stats_helper' :instructor_stats_helper }
 
         return render_to_string('admin/instructor/q_score_history.html', lu)      
     q_score_history.allow_tags = True

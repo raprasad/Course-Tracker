@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.loader import render_to_string
 from django.db.models.signals import post_save      
+from django.core import urlresolvers
 
 import datetime
 import re
@@ -9,7 +10,7 @@ from course_tracker.department.models import Department
 from course_tracker.building.models import Room
 from course_tracker.instructor.models import Instructor, TeachingAssistant
 from course_tracker.course_parameters.models import *
-#from course_tracker.textbook.models import Book
+from course_tracker.qscore_helper.q_score_stats_helper import QScoreStatsHelper
 
 
 
@@ -27,22 +28,41 @@ class Course(models.Model):
     department = models.ForeignKey(Department)
     status = models.ForeignKey(CourseStatus)
     
-    def semester_details(self):
-         return '(coming soon!)'
-         lst = SemesterDetails.objects.filter(course=self).order_by('-year', 'term')
-         if lst.count() == 0:
-             return '(no history)'
-         return render_to_string('admin/course/semesterdetails/budget_history.html', { 'semester_details' : lst })      
-    semester_details.allow_tags = True
     
-    """
-    def enrollment_chart(self):
-        lst = SemesterDetails.objects.filter(course=self).order_by('-year', 'term')
+    def budget_history(self):
+        lst = self.semesterdetails_set.all().order_by('-year', 'term')
         if lst.count() == 0:
-             return '(no history)'
-        return render_to_string('admin/course/course/enrollment_chart.html', { 'semester_details' : lst })      
-    enrollment_chart.allow_tags = True
-    """
+            return '(no history)'
+        return render_to_string('admin/course/semesterdetails/budget_history.html', { 'semester_details' : lst })      
+    budget_history.allow_tags = True
+    
+    
+    def enrollment_history(self):
+          lst = self.semesterdetails_set.all().order_by('-year', 'term')
+          if lst.count() == 0:
+              return '(no history)'
+          return render_to_string('admin/course/semesterdetails/enrollment_history.html', { 'semester_details' : lst })
+    enrollment_history.allow_tags = True
+    
+    def instructor_history(self):
+          lst = self.semesterdetails_set.all().order_by('-year', 'term')
+          if lst.count() == 0:
+              return '(no history)'
+          return render_to_string('admin/course/semesterdetails/instructor_history.html', { 'semester_details' : lst })
+    instructor_history.allow_tags = True
+    
+    def q_score_history(self):
+        lst = self.semesterdetails_set.all().order_by('-year', 'term')
+        if lst.count() == 0:
+            return '(no history)'
+            
+        q_scores = map(lambda x: x.q_score, lst)
+        stats_helper = QScoreStatsHelper(q_scores)
+        
+        return render_to_string('admin/course/semesterdetails/q_score_history.html'\
+                , { 'semester_details' : lst\
+                    , 'stats_helper' : stats_helper })
+    q_score_history.allow_tags = True
 
     def enrollment_chart(self):
         lu = { 'categories' : [ 'Fall 2008', 'Spring 2009','Fall 2009', 'Spring 2010', 'Fall 2010', 'Spring 2011'],\
@@ -158,6 +178,12 @@ class SemesterDetails(models.Model):
     #    return self.course.course_id #department.abbreviation
     #department.allow_tags = True
     
+    def course_link(self):
+        #return '<a href="{}"'
+        return '<a href="%s">view course</a>' % urlresolvers.reverse('admin:course_course_change', args=(self.course.id,))
+    course_link.allow_tags = True
+
+
     def budget_history(self):
         lst = SemesterDetails.objects.filter(course=self.course).order_by('-year', 'term')
         if lst.count() == 0:
@@ -180,6 +206,18 @@ class SemesterDetails(models.Model):
           return render_to_string('admin/course/semesterdetails/instructor_history.html', { 'semester_details' : lst })
     instructor_history.allow_tags = True
     
+    def q_score_history(self):
+        lst = SemesterDetails.objects.filter(course=self.course).order_by('-year', 'term')
+        if lst.count() == 0:
+            return '(no history)'
+                        
+        q_scores = map(lambda x: x.q_score, lst)
+        stats_helper = QScoreStatsHelper(q_scores)
+        
+        return render_to_string('admin/course/semesterdetails/q_score_history.html'\
+                , { 'semester_details' : lst\
+                    , 'stats_helper' : stats_helper })
+    q_score_history.allow_tags = True
     
     def course_title(self):
         return self.course.title

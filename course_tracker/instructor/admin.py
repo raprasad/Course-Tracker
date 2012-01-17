@@ -18,7 +18,8 @@ class InstructorAdmin(admin.ModelAdmin):
     
     list_display = ( 'last_name',  'first_name', 'title', 'status',)
     list_filter = ('status', 'title', 'primary_affiliation' )
-    filter_vertical = ( 'primary_affiliation', 'other_affiliations', 'lab_assistants', )
+    filter_vertical = ( 'primary_affiliation', 'other_affiliations',  )
+    filter_horizontal = ('lab_assistants', )
     search_fields = ('first_name', 'last_name', 'title__name', 'primary_affiliation__name' )
     fieldsets = [
      ('Name / Title', { 'fields':  [ 'user', ('first_name', 'mi', 'last_name',), 'title' , ]}), \

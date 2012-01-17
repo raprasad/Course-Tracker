@@ -12,7 +12,7 @@
     <tr>
         <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
         <td class="{{ rowcolors }}"><a href="{% url admin:course_semesterdetails_change s.semester.id %}">{{ s.semester.term }} {{ s.semester.year}}</a></td>
-        <td class="{{ rowcolors }}">{{ s.semester.course }}</td>
+        <td class="{{ rowcolors }}"><a href="{% url admin:course_course_change s.semester.course.id %}">{{ s.semester.course }}</a></td>
         <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
         <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
     </tr>
