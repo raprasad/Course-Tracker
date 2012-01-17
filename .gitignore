@@ -6,6 +6,7 @@
 # directories to ignore
 /spreadsheets/*
 /fixtures/*
+/db/*
 
 # ignore python compiled files
 *.pyc

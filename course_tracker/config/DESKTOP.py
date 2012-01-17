@@ -1,4 +1,7 @@
 # rprasad/123
+import os
+
+CURRENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,12 +14,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'course_tracker',                      # Or path to database file if using sqlite3.
-        'USER': 'djangocms',                      # Not used with sqlite3.
-        'PASSWORD': '123',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': os.path.join(CURRENT_DIR, 'db', 'cdb_01.db3'),                               
+        'USER': '',                   
+        'PASSWORD': '', 
+        'HOST': '',   
+        'PORT': '', 
     }
 }
 
@@ -79,7 +82,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/Users/rprasad/mcb-git/Course-Tracker/media'
+MEDIA_ROOT = os.path.join(CURRENT_DIR, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -112,10 +115,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'course_tracker.urls'
 
 TEMPLATE_DIRS = (
-    '/Users/rprasad/mcb-git/Course-Tracker/templates',
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(CURRENT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
