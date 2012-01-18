@@ -10,7 +10,7 @@ from course_tracker.department.models import Department
 from course_tracker.building.models import Room
 from course_tracker.instructor.models import Instructor, TeachingAssistant
 from course_tracker.course_parameters.models import *
-from course_tracker.qscore_helper.q_score_stats_helper import QScoreStatsHelper
+from course_tracker.score_helper.q_score_stats_helper import QScoreStatsHelper
 
 
 
@@ -173,6 +173,8 @@ class SemesterDetails(models.Model):
         super(SemesterDetails, self).save()
 
 
+    
+        
     #def department(self):
         #return self.course.department.abbreviation
     #    return self.course.course_id #department.abbreviation

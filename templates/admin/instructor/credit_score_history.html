@@ -1,24 +1,18 @@
+<div style="margin:0 0 0 110px;">
 
-{% if semester_credit_score_history %}
-<table cellpadding="20">
-    <tr>
-        <th>&nbsp;</th>
-        <th>Semester</th>       
-        <th>Course</th>
-        <th>Credit Score</th>
-        <th>Note</th>        
-    </tr>
-    {% for s in semester_credit_score_history %}
-    <tr>
-        <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
-        <td class="{{ rowcolors }}"><a href="{% url admin:course_semesterdetails_change s.semester.id %}">{{ s.semester.term }} {{ s.semester.year}}</a></td>
-        <td class="{{ rowcolors }}"><a href="{% url admin:course_course_change s.semester.course.id %}">{{ s.semester.course }}</a></td>
-        <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
-        <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
-    </tr>
-    {% endfor %}
-    
-</table>
-{% else %}
-    <p>No semester credit scores available</p>
-{% endif %}
+{% include "admin/instructor/credit_score_teaching.html" %}
+
+{% include "admin/instructor/credit_score_development.html" %}
+
+{% include "admin/instructor/credit_score_academic.html" %}
+
+{% comment %}
+{% endcomment %}
+{% for summ in stats_credit_helper.get_academic_year_summaries %}
+    <br />{{ summ.academic_year}} - {{ summ.semester_score_total }} -  {{ summ.course_dev_score_total }}
+    - {{ summ.academic_score_total }}
+    <br />{{ summ.grand_total_score }}
+
+{% endfor %}
+
+</div>

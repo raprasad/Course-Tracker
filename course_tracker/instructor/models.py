@@ -6,7 +6,8 @@ from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
 from course_tracker.department.models import Department
 from course_tracker.building.models import Building
-from course_tracker.qscore_helper.q_score_stats_helper import QScoreStatsHelper
+from course_tracker.score_helper.q_score_stats_helper import QScoreStatsHelper
+from course_tracker.score_helper.credit_score_stats_helper import CreditScoreStatsHelper
 
 
 class InstructorStatus(models.Model):
@@ -205,10 +206,10 @@ class Instructor(models.Model):
         #   coursedevelopmentcredit_set
         if not self.id:
             return '(no history)'
+    
+        stats_credit_helper = CreditScoreStatsHelper(self)
 
-        semester_credit_score_history = self.semesterinstructorcredit_set.all()
-
-        lu = { 'semester_credit_score_history' : semester_credit_score_history}
+        lu = { 'stats_credit_helper' : stats_credit_helper}
 
         return render_to_string('admin/instructor/credit_score_history.html', lu)      
     credit_score_history.allow_tags = True

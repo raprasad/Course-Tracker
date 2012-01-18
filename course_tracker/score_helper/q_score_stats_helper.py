@@ -23,6 +23,8 @@ class QScoreStatsHelper:
         self.q_score_list.sort()
         self.sum_score = sum(self.q_score_list)
         self.num_scores = len(self.q_score_list)
+        if self.num_scores == 0:
+            return
         self.mean_score = self.sum_score / self.num_scores
         
         if len(self.q_score_list) == 1:

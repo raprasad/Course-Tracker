@@ -22,7 +22,16 @@ class CourseAdmin(admin.ModelAdmin):
                     ]
 admin.site.register(Course, CourseAdmin)
 
-admin.site.register(SemesterInstructorQScore)
+class SemesterInstructorCreditAdmin(admin.ModelAdmin):
+    save_on_top = True
+    list_display = ( 'semester', 'instructor', 'credit_score', 'note' )
+admin.site.register(SemesterInstructorCredit, SemesterInstructorCreditAdmin)
+
+class SemesterInstructorQScoreAdmin(admin.ModelAdmin):
+    save_on_top = True
+    list_display = ( 'semester', 'instructor', 'q_score',  )
+admin.site.register(SemesterInstructorQScore, SemesterInstructorQScoreAdmin)
+    
 
 class SemesterInstructorQScoreAdminInline(admin.TabularInline):
     model = SemesterInstructorQScore

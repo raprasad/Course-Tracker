@@ -1,0 +1,31 @@
+
+{% if stats_credit_helper and stats_credit_helper.academic_credit_history.count > 0 %}
+<div style="font-size:13px; width:700px; border:1px solid #999; padding:5px; margin:25px 0 5px 0;">Academic Credits</div>
+<table cellpadding="20">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Semester</th>       
+        <th>Course</th>
+        <th>Credit</th>
+        <th>Note</th>        
+    </tr>
+    {% for s in stats_credit_helper.academic_credit_history %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
+        <td class="{{ rowcolors }}">{{ s.term }} {{ s.year}}</td>
+        <td class="{{ rowcolors }}">{{ s.position}}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
+        <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
+    </tr>
+    {% endfor %}
+      <tr>
+            <td colspan="2">&nbsp;</td>    
+            <td class="align-right">credit score total</td>
+            <td class="align-right">{{ stats_credit_helper.sum_academic_score|floatformat:2  }}</td>
+            <td class="align-right">&nbsp;</td>
+     </tr>    
+</table>    
+{% else %}
+<p>(There are no academic credit scores.)</p>
+{% endif %}
+
