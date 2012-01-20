@@ -17,7 +17,7 @@ class AcademicYearSummary:
         self.grand_total_score = 0
         
         
-    def calc_scores(self):
+    def calc_academic_year_scores(self):
         if len(self.semester_credit_objects) > 0:
             self.semester_score_total = sum(map(lambda x: x.credit_score, self.semester_credit_objects))
 
@@ -28,7 +28,6 @@ class AcademicYearSummary:
             self.academic_score_total = sum(map(lambda x: x.credit_score, self.academic_credit_objects))
         
         self.grand_total_score = self.semester_score_total + self.course_dev_score_total  + self.academic_score_total
-        
         
 class CreditScoreStatsHelper:
     """Simple calculation results used to display credit history information in a template.
@@ -67,23 +66,34 @@ class CreditScoreStatsHelper:
         self.sum_academic_score = Decimal('0')
         self.num_academic_scores = 0
 
+        self.grand_total_score = 0
+
         
         # make calculations
         self.calc_semester_credit_scores()
         self.calc_development_scores()
         self.calc_academic_scores()
-
+        self.calc_grand_total()
+        
         # summary by academic year
         self.academic_year_summary_lu = {}
         self.create_academic_year_summaries()
     
+    def calc_grand_total(self):
+        self.grand_total_score = self.sum_score + self.sum_development_score +self.sum_academic_score
+        
+    def get_academic_year_summary_count(self):
+        if self.academic_year_summary_lu is None:
+            return 0
+        return len(self.academic_year_summary_lu)
+    
     def get_academic_year_summaries(self):
         summaries = self.academic_year_summary_lu.values()
-        summaries.sort(lambda x: x.academic_year)
-        print '-' *40
-        for summ in summaries:
-            print summ
-        print '-' *40
+        summaries.sort(key=lambda x: x.academic_year)
+    
+        #for summ in summaries:
+        #    print summ
+        #print '-' *40
         return summaries
         
     def create_academic_year_summaries(self):
@@ -104,16 +114,15 @@ class CreditScoreStatsHelper:
             self.academic_year_summary_lu.update({ academic_year:academic_year_summary })   
         
         # separate academic scores by academic year
-        for obj in self.academic_credit_history:
-            academic_year = get_academic_year(obj.term, obj.year)
+        for obj_academic_yr in self.academic_credit_history:
+            academic_year = get_academic_year(obj_academic_yr.term, obj_academic_yr.year)
             academic_year_summary = self.academic_year_summary_lu.get(academic_year, AcademicYearSummary(academic_year))
-            academic_year_summary.academic_credit_objects.append(obj)
-            print '>>> ', academic_year
-            #self.academic_year_summary_lu.update({ academic_year:academic_year_summary })   
-            
-        for academic_year_summary in self.academic_year_summary_lu.values():
-            academic_year_summary.calc_scores()
+            academic_year_summary.academic_credit_objects.append(obj_academic_yr)
+            self.academic_year_summary_lu.update({ academic_year:academic_year_summary })   
+
         
+        for academic_year_summary in self.academic_year_summary_lu.values():
+            academic_year_summary.calc_academic_year_scores()
         
     def calc_academic_scores(self):
         dev_scores = map(lambda x: x.credit_score, self.academic_credit_history)

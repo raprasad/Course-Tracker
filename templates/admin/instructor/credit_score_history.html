@@ -1,4 +1,5 @@
 <div style="margin:0 0 0 110px;">
+    {% include "admin/instructor/credit_score_by_academic_year.html" %}
 
 {% include "admin/instructor/credit_score_teaching.html" %}
 
@@ -6,13 +7,9 @@
 
 {% include "admin/instructor/credit_score_academic.html" %}
 
+
 {% comment %}
 {% endcomment %}
-{% for summ in stats_credit_helper.get_academic_year_summaries %}
-    <br />{{ summ.academic_year}} - {{ summ.semester_score_total }} -  {{ summ.course_dev_score_total }}
-    - {{ summ.academic_score_total }}
-    <br />{{ summ.grand_total_score }}
 
-{% endfor %}
 
 </div>

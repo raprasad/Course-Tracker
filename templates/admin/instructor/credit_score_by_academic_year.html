@@ -1,0 +1,38 @@
+
+
+{% if stats_credit_helper and stats_credit_helper.grand_total_score > 0 %}
+<div style="font-size:13px; width:700px; border:1px solid #999; padding:5px; margin:25px 0 5px 0;">Credits by Academic Year</div>
+<table cellpadding="20">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Academic Year</th>       
+        <th class="align-right" style="padding:0 15px;">Teaching<br />Credit</th>
+        <th class="align-right" style="padding:0 15px;">Course Dev<br />Credit</th>
+        <th class="align-right" style="padding:0 15px;">Academic<br />Credit</th>        
+        <th class="align-right" style="padding:0 15px;">Year<br />Total</th>        
+    </tr>
+    {% for s in stats_credit_helper.get_academic_year_summaries %}
+    <tr>
+        <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
+        <td class="{{ rowcolors }}">{{ s.academic_year }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.semester_score_total|floatformat:2 }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.course_dev_score_total|floatformat:2 }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.academic_score_total|floatformat:2 }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.grand_total_score|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+      <tr>
+            <td>&nbsp;</td>    
+            <td><b>Totals</b></td>    
+            <td class="align-right">{{ stats_credit_helper.sum_score|floatformat:2  }}</td>
+            <td class="align-right">{{ stats_credit_helper.sum_development_score|floatformat:2  }}</td>
+            <td class="align-right">{{ stats_credit_helper.sum_academic_score|floatformat:2  }}</td>
+            <td class="align-right">{{ stats_credit_helper.grand_total_score|floatformat:2  }}</td>
+            <td class="align-right">&nbsp;</td>
+
+         </tr>       
+        
+</table>
+{% else %}
+    
+{% endif %}

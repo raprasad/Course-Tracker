@@ -1,6 +1,8 @@
 
-{% if stats_credit_helper and stats_credit_helper.semester_credit_score_history.count > 0 %}
-<div style="font-size:13px; width:700px; border:1px solid #999; padding:5px; margin:5px 0;">Teaching Credits</div>
+{#% if stats_credit_helper and stats_credit_helper.semester_credit_score_history.count > 0 %#}
+{% if stats_credit_helper and stats_credit_helper.sum_score > 0 %}
+
+<div style="font-size:13px; width:700px; border:1px solid #999; padding:5px; margin:25px 0 5px 0;">Teaching Credits</div>
 <table cellpadding="20">
     <tr>
         <th>&nbsp;</th>
@@ -14,7 +16,7 @@
         <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
         <td class="{{ rowcolors }}"><a href="{% url admin:course_semesterdetails_change s.semester.id %}">{{ s.semester.term }} {{ s.semester.year}}</a></td>
         <td class="{{ rowcolors }}"><a href="{% url admin:course_course_change s.semester.course.id %}">{{ s.semester.course }}</a></td>
-        <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.credit_score|floatformat:2 }}</td>
         <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
     </tr>
     {% endfor %}
@@ -33,5 +35,5 @@
     
 </table>
 {% else %}
-    <p>No semester credit scores available</p>
+    <p>(No semester credit scores available.)</p>
 {% endif %}

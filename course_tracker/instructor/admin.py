@@ -33,7 +33,7 @@ class InstructorAdmin(admin.ModelAdmin):
      ('Email / Phone / Fax', { 'fields':  [ 'email', 'phone', 'fax',  ]}),\
 
      ( 'Course History', { 'classes': ('',), 'fields':  [ 'course_history', 'q_score_history',  ]}),\
-     ( 'Credit Score History', { 'classes': ('',), 'fields':  [ 'credit_score_history', 'course_development_credit_score_history', 'academic_semester_credit_score_history']}),\
+     ( 'Credit Score History', { 'classes': ('',), 'fields':  [ 'credit_score_history',]}),\
      
      
      ]

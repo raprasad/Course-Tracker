@@ -14,7 +14,7 @@
         <td class="{% cycle 'row1' 'row2' as rowcolors %} align-right">{{ forloop.counter }}</td>
         <td class="{{ rowcolors }}">{{ s.term }} {{ s.year}}</td>
         <td class="{{ rowcolors }}">{{ s.position}}</td>
-        <td class="{{ rowcolors }} align-right">{{ s.credit_score }}</td>
+        <td class="{{ rowcolors }} align-right">{{ s.credit_score|floatformat:2 }}</td>
         <td class="{{ rowcolors }}">{% if s.note %}{{ s.note }}{% else %}&nbsp;{% endif %}</td>
     </tr>
     {% endfor %}
