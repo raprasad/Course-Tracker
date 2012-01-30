@@ -1,6 +1,7 @@
 from django.contrib import admin
 from course_tracker.course.models import *
 from course_tracker.course.forms import *
+import copy
 
 class CourseAdmin(admin.ModelAdmin):
     form = CourseAdminForm
@@ -48,14 +49,38 @@ class CourseDevelopmentCreditAdminInline(admin.TabularInline):
     model = CourseDevelopmentCredit
     extra=0
 
+def copy_semester(modeladmin, request, queryset):
+    for sd in queryset:
+        sd_copy = copy.copy(sd)
+        sd_copy.id = None
+        sd_copy.save()    
+        
+        # copy instructors
+        for instructor in sd.instructors.all():
+            sd_copy.instructors.add(instructor)
+        sd_copy.save()
+
+        # copy requirements_met
+        for req in sd.requirements_met.all():
+            sd_copy.requirements_met.add(req)
+        sd_copy.save()
+        
+        # zero out enrollments
+        for attr_name in ['enrollments_entered', 'undergrads_enrolled', 'grads_enrolled', 'employees_enrolled', 'cross_registered', 'withdrawals']:
+            sd_copy.__dict__.update({ attr_name : 0})
+        sd_copy.save()
+            
+    copy_semester.short_description = "Make a Copy of Semester Details"
+
+
 
 class SemesterDetailsAdmin(admin.ModelAdmin):
     save_on_top = True    
     inlines = (SemesterInstructorQScoreAdminInline, SemesterInstructorCreditAdminInline, CourseDevelopmentCreditAdminInline )
-    readonly_fields = ['course_link','instructors_list', 'course_title', 'instructor_history', 'budget_history', 'enrollment_history', 'q_score_history']
-    list_display = ( 'course', 'year', 'term','time_sort','instructors_list', 'meeting_date', 'meeting_time', 'room', 'number_of_sections',  )
+    readonly_fields = ['course_link','instructors_list', 'course_title', 'instructor_history', 'budget_history', 'enrollment_history', 'q_score_history', 'created', 'last_update']
+    list_display = ( 'course', 'year', 'term','time_sort','instructors_list', 'last_update','meeting_date', 'meeting_time', 'room', 'number_of_sections',  'last_update')
     list_filter = (  'year', 'term', 'meeting_type', 'course__department__name', 'instructors' )
-
+    actions = [copy_semester]
     search_fields = ('course__title', 'instructors__lname', 'instructors__fname')
     filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', )
     fieldsets = [

@@ -159,6 +159,10 @@ class SemesterDetails(models.Model):
     budget = models.DecimalField(default=0, decimal_places=2, max_digits=9)
     budget_note = models.TextField(blank=True)
     
+    
+    created = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now=True)
+    
     # books 
     #books = models.ManyToManyField(Book, blank=True, null=True)
     #online_materials = models.ManyToManyField(OnlineMaterial)
