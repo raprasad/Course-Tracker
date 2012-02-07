@@ -168,7 +168,9 @@ class SemesterDetails(models.Model):
     #online_materials = models.ManyToManyField(OnlineMaterial)
 
     def save(self):
-        self.total_enrolled = self.undergrads_enrolled + self.grads_enrolled + self.employees_enrolled 
+        self.total_enrolled = self.undergrads_enrolled + self.grads_enrolled \
+                            + self.employees_enrolled + self.cross_registered \
+                            - self.withdrawals
         try:
             self.time_sort = datetime.date(self.year, self.term.sort_month, 1)
         except:

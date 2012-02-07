@@ -28,7 +28,7 @@ class School(models.Model):
 class Department(models.Model):
     """e.g. Department of Molecular & Cellular Biology"""
     name = models.CharField(max_length=255)
-    abbreviation = models.CharField(max_length=20)
+    abbreviation = models.CharField(max_length=20, unique=True)
     school = models.ForeignKey(School, blank=True, null=True, help_text='optional')
     institution = models.ForeignKey(Institution)
     

@@ -3,7 +3,11 @@
 {% block pretitle %}
 <p>
     <div style="border:1px solid #999; padding:5px; width:450px; background-color:#f1f1f1">
-        <a href="{% url view_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download Course Listing (.xls)</a>
+        <ul style="list-style-type:none;">
+        <li><a href="{% url view_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download Course Listing (.xls)</a></li>
+        <li><a href="{% url view_mcb_related_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download MCB Enrollment Stats (.xls)</a></li>
+        </ul>
+        
         
     </div>
 <!--br />path:{{ request.get_full_path }} --></p>
