@@ -1,0 +1,10 @@
+CREATE DATABASE mcb_course_tracker CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE test_mcb_course_tracker CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE USER 'mcb_course_user'@'localhost' IDENTIFIED BY '';
+GRANT ALL ON mcb_course_tracker.* TO 'mcb_course_user'@'localhost';
+GRANT ALL ON test_mcb_course_tracker.* TO 'mcb_course_user'@'localhost';
+
+mysqladmin -u root password NEWPASSWORD
+
+

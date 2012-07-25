@@ -1,0 +1,28 @@
+
+# server: mcbpublic.unix.fas.harvard.edu 
+# location: /var/wwww/course-tracker/.htaccess
+#----------------------------
+# activate rewrite, disable indexes, add wsgi handler
+#----------------------------
+Options +FollowSymlinks -Indexes
+RewriteEngine On
+AddHandler wsgi-script .wsgi
+
+#----------------------------
+# Restrict access by IP address
+# - requires AllowOverride 'Limit' in .conf
+#----------------------------
+Order deny,allow
+Deny from all 
+#Allow from all
+Allow from 140.247
+Allow from 140.247.10.142
+
+
+#----------------------------
+# wsgi for mcb django site
+#----------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/(.*)$ /course-tracker/course-tracker/wsgi_course_tracker.wsgi/$1 [QSA,PT,L]
+
+

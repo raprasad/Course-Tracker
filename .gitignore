@@ -2,6 +2,9 @@
 .DS_Store
 #/course_tracker/config/DESKTOP.py
 /course_tracker/config/RCG_WEBAPP_PRD.py
+/course_tracker/config/prod_fas.py
+
+/files_to_serve/static/*
 
 # directories to ignore
 /spreadsheets/*

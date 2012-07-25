@@ -2,6 +2,9 @@
 import os
 
 CURRENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+FILES_TO_SERVE_ROOT = '/Users/rprasad/mcb-git/Course-Tracker/files_to_serve' 
+FILES_TO_SERVE_URL_BASE = 'http://127.0.0.1:8000/' #'mcbweb.rc.fas.harvard.edu/mcb/'
+#os.path.join(CURRENT_DIR, 'mcb_files_to_serve')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -80,19 +83,32 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
+SESSION_COOKIE_NAME = 'course_tracker_desktop'
+
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = os.path.join(FILES_TO_SERVE_ROOT, 'static')
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = FILES_TO_SERVE_URL_BASE + 'static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (os.path.join(CURRENT_DIR, 'static_site_files'),)
+
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(CURRENT_DIR, 'media/')
+MEDIA_ROOT = os.path.join(FILES_TO_SERVE_ROOT, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media-course-tracker/'
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media-admin/'
+#MEDIA_URL = '/media-course-tracker/'
+MEDIA_URL = FILES_TO_SERVE_URL_BASE + 'media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'djj-7@_bjjd&r@bl8oz01(gq%zyi8h*ve35kd7d@ier_1x((qe'
@@ -124,6 +140,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.humanize',
 
