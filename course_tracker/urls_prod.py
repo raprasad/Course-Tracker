@@ -7,14 +7,14 @@ import settings
 
 urlpatterns = patterns('',
     # Example:
-    (r'^course-tracker/course/', include('course_tracker.course.urls')),
+    (r'^course/', include('course_tracker.course.urls')),
 
-    (r'^course-tracker/spreadsheets/', include('course_tracker.spreadsheet_helper.urls')),
+    (r'^spreadsheets/', include('course_tracker.spreadsheet_helper.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    (r'^course-tracker/control-panel/', include(admin.site.urls)),
+    (r'^control-panel/', include(admin.site.urls)),
         
 )

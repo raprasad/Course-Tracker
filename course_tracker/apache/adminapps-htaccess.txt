@@ -1,5 +1,5 @@
 
-# server: mcbpublic.unix.fas.harvard.edu 
+# server: adminapps.mcb.fas.harvard.edu 
 # location: /var/wwww/course-tracker/.htaccess
 #----------------------------
 # activate rewrite, disable indexes, add wsgi handler
