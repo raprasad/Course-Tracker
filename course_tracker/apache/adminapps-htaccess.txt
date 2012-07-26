@@ -17,6 +17,11 @@ Allow from all
 Allow from 140.247
 Allow from 140.247.10.142
 
+#----------------------------
+# Force https
+#----------------------------
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://adminapps.mcb.harvard.edu/course-tracker/$1 [R,L]
 
 #----------------------------
 # wsgi for mcb django site
