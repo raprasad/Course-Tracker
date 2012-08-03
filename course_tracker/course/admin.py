@@ -81,7 +81,7 @@ class SemesterDetailsAdmin(admin.ModelAdmin):
     list_display = ( 'course', 'year', 'term','time_sort','instructors_list', 'last_update','meeting_date', 'meeting_time', 'room', 'number_of_sections',  'last_update')
     list_filter = (  'year', 'term', 'meeting_type', 'course__department__name', 'instructors' )
     actions = [copy_semester]
-    search_fields = ('course__title', 'instructors__last_name', 'instructors__first_name')
+    search_fields = ('course__title', 'course__course_id', 'instructors__last_name', 'instructors__first_name')
     filter_horizontal = ('instructors', 'teaching_assistants', 'requirements_met', )
     fieldsets = [
      ('Course', { 'fields':  [  ('course',) \
