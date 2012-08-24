@@ -159,5 +159,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+POORMANS_DB_BACKUP_DIR = 'some-dir'
 
 

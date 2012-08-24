@@ -129,3 +129,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SMTP_CONNECTION_STRING = 'mail.fas.harvard.edu' 
 EMAIL_HOST = 'mail.fas.harvard.edu' 
+
+POORMANS_DB_BACKUP_DIR = config.POORMANS_DB_BACKUP_DIR
+
