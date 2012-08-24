@@ -3,4 +3,4 @@
 30 7 * * * /usr/bin/python /var/webapps/django/Course-Tracker/cron_scripts/db_backup/run_db_backup.py
 
 # run database back up each Tuesday morning at 7:00 am; relatively quick
-0 7 * * 2 /usr/bin/python /var/webapps/django/Course-Tracker/cron_scripts/db_backup/run_trim_backup.py
+0 7 * * 2 /usr/bin/python /var/webapps/django/Course-Tracker/cron_scripts/db_backup/run_trim_backups.py
