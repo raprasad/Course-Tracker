@@ -152,6 +152,10 @@ INSTALLED_APPS = (
     'course_tracker.course',
     'course_tracker.academic_year_credit',
     'course_tracker.spreadsheet_helper',
+
+    'course_tracker.course_info_api', # api
+    
+    
     
     # Uncomment the next line to enable the admin:
 

@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 
     (r'^course-tracker/spreadsheets/', include('course_tracker.spreadsheet_helper.urls')),
 
+    (r'^course-tracker/%s/'% (settings.TASTYPIE_URL_PIECE), include('course_tracker.course_info_api.urls_api')),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

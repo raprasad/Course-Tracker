@@ -10,9 +10,10 @@ elif socket.gethostname() == 'mcb-adminapps.unix.fas.harvard.edu':
     import config.prod_fas as config
     #    server_ip_address = socket.gethostbyname(socket.gethostname())
 else:
-    import sys
-    print 'Config file not found for host [%s] ip [%s]' % (socket.gethostname(), server_ip_address)
-    sys.exit(0)
+    import config.DESKTOP as config
+    #import sys
+    #print 'Config file not found for host [%s]' % (socket.gethostname())
+    #sys.exit(0)
 
 DEBUG = config.DEBUG
 TEMPLATE_DEBUG = config.TEMPLATE_DEBUG
@@ -31,6 +32,8 @@ DATABASES = config.DATABASES
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/New_York'
+
+TASTYPIE_URL_PIECE = 'mcb-api'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
