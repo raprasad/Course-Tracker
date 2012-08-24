@@ -1,15 +1,9 @@
 import os, sys
 
-#--------------------------------
-# common section to import paths
-#--------------------------------
-util_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
-sys.path.append(util_dir)
-from util.msg_util import *
-from util.project_paths import *
-#--------------------------------
+sys.path.append('/var/webapps/django/Course-Tracker')
+sys.path.append('/var/webapps/django/Course-Tracker/course_tracker')
 
-from mcb_website import settings
+from course_tracker import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 
