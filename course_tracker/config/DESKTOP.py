@@ -1,10 +1,16 @@
 # rprasad/123
-import os
+import os, sys
 
 CURRENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 FILES_TO_SERVE_ROOT = '/Users/rprasad/mcb-git/Course-Tracker/files_to_serve' 
-FILES_TO_SERVE_URL_BASE = 'http://127.0.0.1:8000/' #'mcbweb.rc.fas.harvard.edu/mcb/'
-#os.path.join(CURRENT_DIR, 'mcb_files_to_serve')
+FILES_TO_SERVE_URL_BASE = 'http://127.0.0.1:8000/' 
+
+pin_auth = '/Users/rprasad/mcb-git/Django-HU-Pin-Auth' 
+for p in [ pin_auth]:
+    if os.path.isdir(p):
+        sys.path.append(p)
+    else:
+        print 'NOT FOUND: %s' % p
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -165,4 +171,13 @@ INSTALLED_APPS = (
 
 POORMANS_DB_BACKUP_DIR = 'some-dir'
 
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend'\
+            , 'hu_authzproxy.hu_authz_pin_backend.HarvardAuthZProxyBackend'\
+            ,)
+
+HU_PIN_LOGIN_APP_NAMES = ('FAS_FCOR_MCB_COURSEDB_AUTHZ', 'FAS_FCOR_MCB_COURSEDB_AUTHZ_DEV',)
+
+GNUPG_HOME = '/Users/rprasad/mcb-git/Django-HU-Pin-Auth/hu_authzproxy/gpg-test'
+#'/home/p/r/prasad/.gnupg'
+GPG_PASSPHRASE = 'gpgmove'
 

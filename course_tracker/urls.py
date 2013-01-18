@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
+    # Harvard Authz handler (callback after Authz login)
+    (r'^course-tracker/hu-azp/', include('course_tracker.hu_authz_handler.urls')),
+
     # Uncomment the next line to enable the admin:
     (r'^course-tracker/control-panel/', include(admin.site.urls)),
     
