@@ -7,6 +7,9 @@ urlpatterns = patterns(
 
 ,    url(r'^enrollment-mcb/xls/$', 'view_mcb_related_course_enrollments', name='view_mcb_related_course_enrollments' )
 
+,    url(r'^enrollment-all/xls/$', 'view_all_course_enrollments', name='view_all_course_enrollments' )
+
+,    url(r'^enrollment-below-300/xls/$', 'view_below_300_course_enrollments', name='view_below_300_course_enrollments' )
 
 ,
 )

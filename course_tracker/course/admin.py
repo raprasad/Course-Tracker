@@ -14,7 +14,7 @@ class CourseAdmin(admin.ModelAdmin):
     #readonly_fields = ('semester_details', 'enrollment_chart','course_sort_field',  )
     readonly_fields = ( 'course_sort_field', 'instructor_history', 'enrollment_history','budget_history' , 'q_score_history')
     fieldsets = [
-     ('Course', { 'fields':  [  ('course_id', 'course_sort_field',), 'title', 'catalog_number', \
+     ('Course', { 'fields':  [  ('course_id', 'course_sort_field', 'course_sort_number'), 'title', 'catalog_number', \
                     'department', 'course_type', 'status' ]}), \
             
     ('Semester History - Click on a specific "Semester" for details.', { 'fields':  [ 'instructor_history', 'enrollment_history', 'budget_history', 'q_score_history' ]}),\

@@ -4,8 +4,14 @@
 <p>
     <div style="border:1px solid #999; padding:5px; width:450px; background-color:#f1f1f1">
         <ul style="list-style-type:none;">
-        <li><a href="{% url view_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download Course Listing (.xls)</a></li>
-        <li><a href="{% url view_mcb_related_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download MCB Enrollment Stats (.xls)</a></li>
+        {#<li><a href="{% url view_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">Download Course Listing (.xls)</a></li>#}
+        <li>Enrollment Stats
+            <ul>
+                <li><a href="{% url view_mcb_related_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">MCB Courses (.xls)</a></li>
+        <li><a href="{% url view_all_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">All Courses (.xls)</a></li>
+        <li><a href="{% url view_below_300_course_enrollments %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}" style="text-decoration:underline;">All Courses below 300-level (.xls)</a></li>
+            </ul></li>
+        
         </ul>
         
         

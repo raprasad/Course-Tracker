@@ -46,7 +46,7 @@ def get_teacher_cell_info(course, teacher_lookup, semester_to_teacher_lookup):
     return '\n'.join(teachers)
     
 
-def make_mcb_enrollment_stats_spreadsheet(sheet1, info_line, courses, **kwargs):
+def make_enrollment_stats_spreadsheet(sheet1, info_line, courses, **kwargs):
     """Spreadsheet for MCB Core admin use"""
     if sheet1 is None:
         return None

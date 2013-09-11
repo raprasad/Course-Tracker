@@ -21,6 +21,7 @@ class Course(models.Model):
     course_id = models.CharField(max_length=20)
     
     course_sort_field = models.CharField(max_length=30, blank=True, help_text='auto-filled on save')
+    course_sort_number = models.IntegerField(default=-1, help_text='auto-filled on save')
     
     title = models.CharField(max_length=255)
     catalog_number = models.CharField(max_length=20)
@@ -93,9 +94,23 @@ class Course(models.Model):
             end_letter = ''
         return '%s %s%s' % (' '.join(course_id_parts[:-1]), last_part, end_letter)
     
-    
+    def get_course_sort_number(self):
+        # is this a double-listing, e.g. PHYSICS 327a/327b
+        
+        try:
+            num_only = re.sub("\D", "", self.course_id.split('\\')[0])
+
+            if num_only.isdigit():
+                return int(num_only)
+        except:
+            pass
+            
+        return -1
+             
+        
     def save(self):
         self.course_sort_field = self.format_course_number_for_sorting()
+        self.course_sort_number = self.get_course_sort_number()
         super(Course, self).save()
         
     class Meta:
