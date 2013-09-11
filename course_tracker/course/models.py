@@ -98,7 +98,9 @@ class Course(models.Model):
         # is this a double-listing, e.g. PHYSICS 327a/327b
         
         try:
-            num_only = re.sub("\D", "", self.course_id.split('/')[0])
+            course_id_split = self.course_id.split('/')[0]
+            course_id_split2 = course_id_split.split('\\')[0]
+            num_only = re.sub("\D", "", course_id_split2)
 
             if num_only.isdigit():
                 return int(num_only)
